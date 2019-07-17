@@ -13,6 +13,7 @@ public class AboutAlc extends AppCompatActivity {
 
     private WebView webView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +25,12 @@ public class AboutAlc extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         webView =  findViewById(R.id.webview);
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public  void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error){
+                handler.proceed();
+            }
+        });
         webView.loadUrl("https://andela.com/alc/");
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -41,10 +47,8 @@ public class AboutAlc extends AppCompatActivity {
 
             super.onBackPressed();
         }
+
     }
 
-    public  void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error){
-        handler.proceed();
-    }
 }
 
